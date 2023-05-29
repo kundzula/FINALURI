@@ -13,22 +13,27 @@ import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selenide.$;
 
 public class GiftSteps extends GiftPage {
-    @Step("სასაჩუქრე ბარათების გვარძე გადასვლა")
+    @Step("სასაჩუქრე ბარათების გვერძე გადასვლა")
     public GiftSteps GiftCardCheck() {
         getInGiftCards.click();
-        durashin.shouldBe(Condition.visible, Duration.ofMillis(3000));
         return this;
     }
 
       @Step("საწყისი ფასის შეყვანა:{firstPrice}")
     public GiftSteps FirstPricecheck(String fprice) {
-        firstPriceInput.setValue(firstPrice);
+        firstPriceInput.setValue(fprice);
+        durashin.shouldBe(Condition.visible,Duration.ofMillis(3000));
         return this;
     }
      @Step("საბოლოოს ფასის შეყვანა: {lastPrise}")
     public GiftSteps LastPricecheck(String lprice) {
-        lastPriceInput.setValue(lastPrise).pressEnter();
-        Dureshin.shouldBe(Condition.visible, Duration.ofMillis(3000));
+        lastPriceInput.setValue(lprice).pressEnter();
+        Dureshin.shouldBe(Condition.visible,Duration.ofMillis(3000));
+               return this;
+    }
+    @Step("ფასის დალაგება ზრდადობით")
+    public GiftSteps Sortprice(){
+        sort.click();
         return this;
     }
 
@@ -52,10 +57,9 @@ public class GiftSteps extends GiftPage {
           @Step("მეორე ტესტზე გადასვლამდე შესასრულებელი ქმედება")
     public GiftSteps Befor (String fprice, String lprice) {
         GiftCardCheck();
-        FirstPricecheck("firstPrice");
-        LastPricecheck("lastPrise");
-
-
+        FirstPricecheck(fprice);
+        LastPricecheck(lprice);
+        Sortprice();
         return this;
     }
 }
